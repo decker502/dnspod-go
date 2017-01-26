@@ -51,5 +51,6 @@ func main() {
   fmt.Printf("Domain: %s\n (id: %d)", domain.Name, domain.Id)
 }
 ```
+## License
 
-
+This is Free Software distributed under the MIT license.
