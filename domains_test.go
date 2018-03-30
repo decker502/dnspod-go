@@ -58,6 +58,40 @@ func TestDomainsService_List(t *testing.T) {
 	}
 }
 
+func TestDomainsService_List_Ambiguous_Value(t *testing.T) {
+	setup()
+	defer teardown()
+
+	mux.HandleFunc("/Domain.List", func(w http.ResponseWriter, r *http.Request) {
+		testMethod(t, r, "POST")
+		fmt.Fprint(w, `{
+			"status": {"code":"1","message":""},
+			"domains": [
+				{
+					"id": 2238269,
+					"status": "enable",
+					"group_id": 9
+				},
+				{
+					"id": 10360095,
+					"status": "enable",
+					"group_id": "9"
+				}
+			]}`)
+	})
+
+	domains, _, err := client.Domains.List()
+
+	if err != nil {
+		t.Errorf("Domains.List returned error: %v", err)
+	}
+
+	want := []Domain{{ID: 2238269, Status: "enable", GroupID: "9"}, {ID: 10360095, Status: "enable", GroupID: "9"}}
+	if !reflect.DeepEqual(domains, want) {
+		t.Errorf("Domains.List returned %+v, want %+v", domains, want)
+	}
+}
+
 func TestDomainsService_Create(t *testing.T) {
 	setup()
 	defer teardown()
