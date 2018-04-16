@@ -58,40 +58,26 @@ func TestDomainsService_List(t *testing.T) {
 	}
 }
 
-func TestDomainsService_ListWithGroupID(t *testing.T) {
+func TestDomainsService_List_Ambiguous_Value(t *testing.T) {
 	setup()
 	defer teardown()
 
 	mux.HandleFunc("/Domain.List", func(w http.ResponseWriter, r *http.Request) {
 		testMethod(t, r, "POST")
 		fmt.Fprint(w, `{
-						  "status": {
-						    "code": "1",
-						    "message": "Action completed successful",
-						    "created_at": "2017-12-24 13:30:49"
-						  },
-						  "info": {
-						    "domain_total": 1,
-						    "all_total": 1,
-						    "mine_total": 1,
-						    "share_total": "0",
-						    "vip_total": 0,
-						    "ismark_total": 0,
-						    "pause_total": 0,
-						    "error_total": 0,
-						    "lock_total": 0,
-						    "spam_total": 0,
-						    "vip_expire": 0,
-						    "share_out_total": 1
-						  },
-						  "domains": [
-						    {
-						      "id": 1,
-						      "status": "enable",
-						      "group_id": "1"
-						    }
-						  ]
-						}`)
+			"status": {"code":"1","message":""},
+			"domains": [
+				{
+					"id": 2238269,
+					"status": "enable",
+					"group_id": 9
+				},
+				{
+					"id": 10360095,
+					"status": "enable",
+					"group_id": "9"
+				}
+			]}`)
 	})
 
 	domains, _, err := client.Domains.List()
@@ -100,9 +86,9 @@ func TestDomainsService_ListWithGroupID(t *testing.T) {
 		t.Errorf("Domains.List returned error: %v", err)
 	}
 
-	want := []Domain{{ID: 1, Status: "enable", GroupID: "1"}}
+	want := []Domain{{ID: 2238269, Status: "enable", GroupID: "9"}, {ID: 10360095, Status: "enable", GroupID: "9"}}
 	if !reflect.DeepEqual(domains, want) {
-		t.Fatalf("Domains.List returned %+v, want %+v", domains, want)
+		t.Errorf("Domains.List returned %+v, want %+v", domains, want)
 	}
 }
 
