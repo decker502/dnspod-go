@@ -65,7 +65,7 @@ func TestDomainsService_ListRecords_subdomain(t *testing.T) {
 			]}`)
 	})
 
-	records, _, err := client.Domains.ListRecords("example.com", "@")
+	records, _, err := client.Domains.ListRecords("11223344", "@")
 
 	if err != nil {
 		t.Errorf("Domains.ListRecords returned error: %v", err)
