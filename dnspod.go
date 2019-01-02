@@ -5,6 +5,7 @@ package dnspod
 
 import (
 	// "bytes"
+	"encoding/json"
 	"fmt"
 	"io"
 	"net"
@@ -12,18 +13,7 @@ import (
 	"net/url"
 	"strings"
 	"time"
-	"unsafe"
-
-	"github.com/json-iterator/go"
 )
-
-var json = jsoniter.ConfigCompatibleWithStandardLibrary
-
-func init() {
-	jsoniter.RegisterFieldDecoderFunc("dnspod.Domain", "GroupID", func(ptr unsafe.Pointer, iter *jsoniter.Iterator) {
-		*((*string)(ptr)) = iter.ReadAny().ToString()
-	})
-}
 
 const (
 	libraryVersion = "0.1"

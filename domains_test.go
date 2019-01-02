@@ -52,7 +52,7 @@ func TestDomainsService_List(t *testing.T) {
 		t.Errorf("Domains.List returned error: %v", err)
 	}
 
-	want := []Domain{{ID: 2238269, Status: "enable"}, {ID: 10360095, Status: "enable"}}
+	want := []Domain{{ID: "2238269", Status: "enable"}, {ID: "10360095", Status: "enable"}}
 	if !reflect.DeepEqual(domains, want) {
 		t.Errorf("Domains.List returned %+v, want %+v", domains, want)
 	}
@@ -86,7 +86,7 @@ func TestDomainsService_List_Ambiguous_Value(t *testing.T) {
 		t.Errorf("Domains.List returned error: %v", err)
 	}
 
-	want := []Domain{{ID: 2238269, Status: "enable", GroupID: "9"}, {ID: 10360095, Status: "enable", GroupID: "9"}}
+	want := []Domain{{ID: "2238269", Status: "enable", GroupID: "9"}, {ID: "10360095", Status: "enable", GroupID: "9"}}
 	if !reflect.DeepEqual(domains, want) {
 		t.Errorf("Domains.List returned %+v, want %+v", domains, want)
 	}
@@ -114,7 +114,7 @@ func TestDomainsService_Create(t *testing.T) {
 		t.Errorf("Domains.Create returned error: %v", err)
 	}
 
-	want := Domain{ID: 1, Name: "example.com"}
+	want := Domain{ID: "1", Name: "example.com"}
 	if !reflect.DeepEqual(domain, want) {
 		t.Fatalf("Domains.Create returned %+v, want %+v", domain, want)
 	}
@@ -136,7 +136,7 @@ func TestDomainsService_Get(t *testing.T) {
 		t.Errorf("Domains.Get returned error: %v", err)
 	}
 
-	want := Domain{ID: 1, Name: "example.com"}
+	want := Domain{ID: "1", Name: "example.com"}
 	if !reflect.DeepEqual(domain, want) {
 		t.Fatalf("Domains.Get returned %+v, want %+v", domain, want)
 	}
