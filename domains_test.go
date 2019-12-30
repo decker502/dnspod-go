@@ -32,6 +32,11 @@ func TestDomainsService_List(t *testing.T) {
 		testMethod(t, r, "POST")
 		fmt.Fprint(w, `{
 			"status": {"code":"1","message":""},
+			"info": {
+				"share_total": 1,
+				"vip_total": 0,
+				"ismark_total": 0
+			},
 			"domains": [
 				{
 					"id": 2238269,
@@ -66,6 +71,11 @@ func TestDomainsService_List_Ambiguous_Value(t *testing.T) {
 		testMethod(t, r, "POST")
 		fmt.Fprint(w, `{
 			"status": {"code":"1","message":""},
+			"info": {
+				"share_total": "1",
+				"vip_total": 0,
+				"ismark_total": 0
+			},
 			"domains": [
 				{
 					"id": 2238269,
