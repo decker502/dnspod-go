@@ -1,3 +1,7 @@
+# 停更通知
+
+由于本项目维护不及时， [lego](https://github.com/go-acme/lego/) 项目作者已经fork了本项目，单独维护了，建议使用 https://github.com/nrdcg/dnspod-go 
+
 # dnspod-go
 
 A Go client for the [DNSPod API](https://www.dnspod.cn/docs/index.html).
